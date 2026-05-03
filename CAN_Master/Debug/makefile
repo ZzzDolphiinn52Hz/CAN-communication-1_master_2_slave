@@ -60,8 +60,8 @@ all: main-build
 main-build: CAN_Project.elf secondary-outputs
 
 # Tool invocations
-CAN_Project.elf CAN_Project.map: $(OBJS) $(USER_OBJS) F:\STM32_Project\CAN_Project\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "CAN_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\STM32_Project\CAN_Project\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+CAN_Project.elf CAN_Project.map: $(OBJS) $(USER_OBJS) F:\STM32_Project\CAN_Proj\CAN_Master\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "CAN_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\STM32_Project\CAN_Proj\CAN_Master\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
