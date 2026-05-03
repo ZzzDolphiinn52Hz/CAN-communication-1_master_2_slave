@@ -86,7 +86,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   // receive data
   HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
-  datacheck = 1; // set data check flag to indicate that data has been received
+  if (RxHeader.DLC == 2){
+    datacheck = 1; 
+  }
 }
 /* USER CODE END 0 */
 
