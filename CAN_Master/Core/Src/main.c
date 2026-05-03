@@ -87,7 +87,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   // receive data
   HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
   if (RxHeader.DLC == 2){
-    datacheck = 1; 
+    datacheck = 1;
   }
 }
 /* USER CODE END 0 */
@@ -245,7 +245,26 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  CAN_FilterTypeDef canfilterconfig;
 
+    canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+    canfilterconfig.SlaveStartFilterBank = 20; // [19..0] --> CAN1, [27..20] --> CAN2
+    canfilterconfig.FilterBank = 18; // FilterBank < SlaveStartFilterBank
+    canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0; // massage --> fifo0
+
+    canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK; // mask mode
+    canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT; // 32-bit scale
+
+    canfilterconfig.FilterIdHigh = 0x103 << 5; // 16bit_high of ID
+    canfilterconfig.FilterIdLow = 0x0000; // 16bit_low
+
+    canfilterconfig.FilterMaskIdHigh = 0x7FF << 5; // 16bit_high of mask
+    canfilterconfig.FilterMaskIdLow = 0x0000;
+
+    if (HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig) != HAL_OK)
+    {
+        Error_Handler();
+    }
   /* USER CODE END CAN1_Init 2 */
 
 }
